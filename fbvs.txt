@@ -1,0 +1,1 @@
+./Debug/main.o ./Debug/bmp.o ./Debug/fb_display.o ./Debug/gif.o ./Debug/jpeg.o ./Debug/png.o ./Debug/transforms.o

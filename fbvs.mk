@@ -1,0 +1,174 @@
+##
+## Auto Generated makefile by CodeLite IDE
+## any manual changes will be erased      
+##
+## Debug
+ProjectName            :=fbvs
+ConfigurationName      :=Debug
+WorkspacePath          := "/home/kai/pi/framebuffer/fbvs"
+ProjectPath            := "/home/kai/pi/framebuffer/fbvs"
+IntermediateDirectory  :=./Debug
+OutDir                 := $(IntermediateDirectory)
+CurrentFileName        :=
+CurrentFilePath        :=
+CurrentFileFullPath    :=
+User                   :=Kai Stuke
+Date                   :=09.03.2014
+CodeLitePath           :="/home/kai/.codelite"
+LinkerName             :=gcc
+SharedObjectLinkerName :=gcc -shared -fPIC
+ObjectSuffix           :=.o
+DependSuffix           :=.o.d
+PreprocessSuffix       :=.o.i
+DebugSwitch            :=-g 
+IncludeSwitch          :=-I
+LibrarySwitch          :=-l
+OutputSwitch           :=-o 
+LibraryPathSwitch      :=-L
+PreprocessorSwitch     :=-D
+SourceSwitch           :=-c 
+OutputFile             :=$(IntermediateDirectory)/$(ProjectName)
+Preprocessors          :=
+ObjectSwitch           :=-o 
+ArchiveOutputSwitch    := 
+PreprocessOnlySwitch   :=-E 
+ObjectsFileList        :="fbvs.txt"
+PCHCompileFlags        :=
+MakeDirCommand         :=mkdir -p
+LinkOptions            :=  
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
+IncludePCH             := 
+RcIncludePath          := 
+Libs                   := $(LibrarySwitch)png 
+ArLibs                 :=  "png" 
+LibPath                := $(LibraryPathSwitch). 
+
+##
+## Common variables
+## AR, CXX, CC, CXXFLAGS and CFLAGS can be overriden using an environment variables
+##
+AR       := ar rcus
+CXX      := gcc
+CC       := gcc
+CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
+CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
+
+
+##
+## User defined environment variables
+##
+CodeLiteDir:=/usr/share/codelite
+Objects0=$(IntermediateDirectory)/main$(ObjectSuffix) $(IntermediateDirectory)/bmp$(ObjectSuffix) $(IntermediateDirectory)/fb_display$(ObjectSuffix) $(IntermediateDirectory)/gif$(ObjectSuffix) $(IntermediateDirectory)/jpeg$(ObjectSuffix) $(IntermediateDirectory)/png$(ObjectSuffix) $(IntermediateDirectory)/transforms$(ObjectSuffix) 
+
+
+
+Objects=$(Objects0) 
+
+##
+## Main Build Targets 
+##
+.PHONY: all clean PreBuild PrePreBuild PostBuild
+all: $(OutputFile)
+
+$(OutputFile): $(IntermediateDirectory)/.d $(Objects) 
+	@$(MakeDirCommand) $(@D)
+	@echo "" > $(IntermediateDirectory)/.d
+	@echo $(Objects0)  > $(ObjectsFileList)
+	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
+
+$(IntermediateDirectory)/.d:
+	@test -d ./Debug || $(MakeDirCommand) ./Debug
+
+PreBuild:
+
+
+##
+## Objects
+##
+$(IntermediateDirectory)/main$(ObjectSuffix): main.c $(IntermediateDirectory)/main$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main$(DependSuffix): main.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main$(ObjectSuffix) -MF$(IntermediateDirectory)/main$(DependSuffix) -MM "main.c"
+
+$(IntermediateDirectory)/main$(PreprocessSuffix): main.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main$(PreprocessSuffix) "main.c"
+
+$(IntermediateDirectory)/bmp$(ObjectSuffix): bmp.c $(IntermediateDirectory)/bmp$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/bmp.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bmp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/bmp$(DependSuffix): bmp.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/bmp$(ObjectSuffix) -MF$(IntermediateDirectory)/bmp$(DependSuffix) -MM "bmp.c"
+
+$(IntermediateDirectory)/bmp$(PreprocessSuffix): bmp.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/bmp$(PreprocessSuffix) "bmp.c"
+
+$(IntermediateDirectory)/fb_display$(ObjectSuffix): fb_display.c $(IntermediateDirectory)/fb_display$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/fb_display.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/fb_display$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/fb_display$(DependSuffix): fb_display.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/fb_display$(ObjectSuffix) -MF$(IntermediateDirectory)/fb_display$(DependSuffix) -MM "fb_display.c"
+
+$(IntermediateDirectory)/fb_display$(PreprocessSuffix): fb_display.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/fb_display$(PreprocessSuffix) "fb_display.c"
+
+$(IntermediateDirectory)/gif$(ObjectSuffix): gif.c $(IntermediateDirectory)/gif$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/gif.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/gif$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/gif$(DependSuffix): gif.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/gif$(ObjectSuffix) -MF$(IntermediateDirectory)/gif$(DependSuffix) -MM "gif.c"
+
+$(IntermediateDirectory)/gif$(PreprocessSuffix): gif.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/gif$(PreprocessSuffix) "gif.c"
+
+$(IntermediateDirectory)/jpeg$(ObjectSuffix): jpeg.c $(IntermediateDirectory)/jpeg$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/jpeg.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/jpeg$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/jpeg$(DependSuffix): jpeg.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/jpeg$(ObjectSuffix) -MF$(IntermediateDirectory)/jpeg$(DependSuffix) -MM "jpeg.c"
+
+$(IntermediateDirectory)/jpeg$(PreprocessSuffix): jpeg.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/jpeg$(PreprocessSuffix) "jpeg.c"
+
+$(IntermediateDirectory)/png$(ObjectSuffix): png.c $(IntermediateDirectory)/png$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/png.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/png$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/png$(DependSuffix): png.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/png$(ObjectSuffix) -MF$(IntermediateDirectory)/png$(DependSuffix) -MM "png.c"
+
+$(IntermediateDirectory)/png$(PreprocessSuffix): png.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/png$(PreprocessSuffix) "png.c"
+
+$(IntermediateDirectory)/transforms$(ObjectSuffix): transforms.c $(IntermediateDirectory)/transforms$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/transforms.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/transforms$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/transforms$(DependSuffix): transforms.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/transforms$(ObjectSuffix) -MF$(IntermediateDirectory)/transforms$(DependSuffix) -MM "transforms.c"
+
+$(IntermediateDirectory)/transforms$(PreprocessSuffix): transforms.c
+	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/transforms$(PreprocessSuffix) "transforms.c"
+
+
+-include $(IntermediateDirectory)/*$(DependSuffix)
+##
+## Clean
+##
+clean:
+	$(RM) $(IntermediateDirectory)/main$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/main$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/main$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/bmp$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/bmp$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/bmp$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/fb_display$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/fb_display$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/fb_display$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/gif$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/gif$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/gif$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/jpeg$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/jpeg$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/jpeg$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/png$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/png$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/png$(PreprocessSuffix)
+	$(RM) $(IntermediateDirectory)/transforms$(ObjectSuffix)
+	$(RM) $(IntermediateDirectory)/transforms$(DependSuffix)
+	$(RM) $(IntermediateDirectory)/transforms$(PreprocessSuffix)
+	$(RM) $(OutputFile)
+	$(RM) ".build-debug/fbvs"
+
+
