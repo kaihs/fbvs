@@ -1,4 +1,8 @@
 /*
+    fbvs -- even simpler image viewer for the linux framebuffer
+	Kai Stuke, 2014
+	
+	based on
 	fbv  --  simple image viewer for the linux framebuffer
 	Copyright (C) 2000, 2001, 2003, 2004  Mateusz 'mteg' Golicz
 
@@ -23,7 +27,6 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <stdlib.h>
-#include <termios.h>
 #include <string.h>
 #include <signal.h>
 #include "config.h"
@@ -31,31 +34,13 @@
 
 #define PAN_STEPPING 20
 
-static int opt_clear = 1,
-           opt_alpha = 0,
-           opt_hide_cursor = 1,
-           opt_image_info = 1,
+static int opt_alpha = 0,
            opt_stretch = 0,
-           opt_delay = 0,
            opt_enlarge = 0,
-           opt_ignore_aspect = 0;
+           opt_ignore_aspect = 0,
+		   opt_dont_clear = 0;
 
 
-
-void setup_console(int t)
-{
-	struct termios our_termios;
-	static struct termios old_termios;
-
-	if(t) {
-		tcgetattr(0, &old_termios);
-		memcpy(&our_termios, &old_termios, sizeof(struct termios));
-		our_termios.c_lflag &= !(ECHO | ICANON);
-		tcsetattr(0, TCSANOW, &our_termios);
-	} else
-		tcsetattr(0, TCSANOW, &old_termios);
-
-}
 
 static inline void do_rotate(struct image *i, int rot)
 {
@@ -175,23 +160,23 @@ static inline void do_fit_to_screen(struct image *i, int screen_width, int scree
 }
 
 
-int show_image(char *filename)
+int show_image(char *devicename)
 {
 
 	unsigned char * image = NULL;
 	unsigned char * alpha = NULL;
 
 	int x_size, y_size, screen_width, screen_height;
-	int x_pan, y_pan, x_offs, y_offs, refresh = 1, c, ret = 1;
-	int delay = opt_delay, retransform = 1;
+	int x_pan, y_pan, x_offs, y_offs, refresh = 1, ret = 1;
+	int retransform = 1;
 
 	int transform_stretch = opt_stretch, transform_enlarge = opt_enlarge, transform_cal = (opt_stretch == 2),
 	    transform_iaspect = opt_ignore_aspect, transform_rotation = 0;
 
 	struct image i;
 
-	if(fh_png_load(filename, &image, &alpha, &x_size, &y_size) != FH_ERROR_OK) {
-		fprintf(stderr, "%s: Image data is corrupt?\n", filename);
+	if(fh_png_load(&image, &alpha, &x_size, &y_size) != FH_ERROR_OK) {
+		fprintf(stderr, "Image data is corrupt?\n");
 		goto error_mem;
 	}
 
@@ -202,7 +187,7 @@ int show_image(char *filename)
 
 
 
-	getCurrentRes(&screen_width, &screen_height);
+	getCurrentRes(devicename, &screen_width, &screen_height);
 	i.do_free = 0;
 	if(retransform) {
 		if(i.do_free) {
@@ -228,12 +213,6 @@ int show_image(char *filename)
 		x_pan = y_pan = 0;
 		refresh = 1;
 		retransform = 0;
-#if 0
-		if(opt_clear) {
-			printf("\033[H\033[J");
-			fflush(stdout);
-		}
-#endif
 	}
 	if(refresh) {
 		if(i.width < screen_width)
@@ -246,17 +225,13 @@ int show_image(char *filename)
 		else
 			y_offs = 0;
 
-		fb_display(i.rgb, i.alpha, i.width, i.height, x_pan, y_pan, x_offs, y_offs);
+fprintf(stderr, "display\n");
+
+		fb_display(devicename, i.rgb, i.alpha, i.width, i.height, x_pan, y_pan, x_offs, y_offs);
 		refresh = 0;
 	}
 
 
-#if 0
-	if(opt_clear) {
-		printf("\033[H\033[J");
-		fflush(stdout);
-	}
-#endif
 
 error_mem:
 	free(image);
@@ -271,88 +246,56 @@ error_mem:
 
 void help(char *name)
 {
-	printf("Usage: %s [options] image1 image2 image3 ...\n\n"
+	printf("Usage: %s [options] <file\n\n"
 	       "Available options:\n"
 	       " --help        | -h : Show this help\n"
+		   " --device      | -d : framebuffer device to use (default " DEFAULT_FRAMEBUFFER ")\n"
 	       " --alpha       | -a : Use the alpha channel (if applicable)\n"
 	       " --dontclear   | -c : Do not clear the screen before and after displaying the image\n"
-	       " --donthide    | -u : Do not hide the cursor before and after displaying the image\n"
-	       " --noinfo      | -i : Supress image information\n"
 	       " --stretch     | -f : Strech (using a simple resizing routine) the image to fit onto screen if necessary\n"
 	       " --colorstretch| -k : Strech (using a 'color average' resizing routine) the image to fit onto screen if necessary\n"
 	       " --enlarge     | -e : Enlarge the image to fit the whole screen if necessary\n"
 	       " --ignore-aspect| -r : Ignore the image aspect while resizing\n"
-	       " --delay <d>   | -s <delay> : Slideshow, 'delay' is the slideshow delay in tenths of seconds.\n\n"
-	       "Keys:\n"
-	       " r            : Redraw the image\n"
-	       " a, d, w, x   : Pan the image\n"
-	       " f            : Toggle resizing on/off\n"
-	       " k            : Toggle resizing quality\n"
-	       " e            : Toggle enlarging on/off\n"
-	       " i            : Toggle respecting the image aspect on/off\n"
-	       " n            : Rotate the image 90 degrees left\n"
-	       " m            : Rotate the image 90 degrees right\n"
-	       " p            : Disable all transformations\n"
-	       "Copyright (C) 2000 - 2004 Mateusz Golicz, Tomasz Sterna.\n", name);
+		   "written by Kai Stuke, 2014\n"
+	       "based on fbv, Copyright (C) 2000 - 2004 Mateusz Golicz, Tomasz Sterna.\n", name);
 }
 
 void sighandler(int s)
 {
-#if 0
-	if(opt_hide_cursor) {
-		printf("\033[?25h");
-		fflush(stdout);
-	}
-	setup_console(0);
-#endif
 	_exit(128 + s);
 
 }
 
 int main(int argc, char **argv)
 {
-#if 0
 	static struct option long_options[] = {
 		{"help",	no_argument,	0, 'h'},
-		{"noclear", 	no_argument, 	0, 'c'},
+		{"device", 	required_argument, 	0, 'd'},
 		{"alpha", 	no_argument, 	0, 'a'},
-		{"unhide",  	no_argument, 	0, 'u'},
-		{"noinfo",  	no_argument, 	0, 'i'},
 		{"stretch", 	no_argument, 	0, 'f'},
 		{"colorstrech", no_argument, 	0, 'k'},
-		{"delay", 	required_argument, 0, 's'},
 		{"enlarge",	no_argument,	0, 'e'},
 		{"ignore-aspect", no_argument,	0, 'r'},
 		{0, 0, 0, 0}
 	};
-	int c, i;
+	int c;
+	char *devicename=NULL;
+	
 
-	if(argc < 2) {
-		help(argv[0]);
-		fprintf(stderr, "Error: Required argument missing.\n");
-		return(1);
-	}
-
-	while((c = getopt_long_only(argc, argv, "hcauifks:er", long_options, NULL)) != EOF) {
+	while((c = getopt_long_only(argc, argv, "hd:afks:er", long_options, NULL)) != EOF) {
 		switch(c) {
-		case 'a':
-			opt_alpha = 1;
+		case 'd':
+			devicename = optarg;
 			break;
 		case 'c':
-			opt_clear = 0;
+			opt_dont_clear = 1;
 			break;
-		case 's':
-			opt_delay = atoi(optarg);
-			break;
-		case 'u':
-			opt_hide_cursor = 0;
+		case 'a':
+			opt_alpha = 1;
 			break;
 		case 'h':
 			help(argv[0]);
 			return(0);
-		case 'i':
-			opt_image_info = 0;
-			break;
 		case 'f':
 			opt_stretch = 1;
 			break;
@@ -369,12 +312,6 @@ int main(int argc, char **argv)
 	}
 
 
-	if(!argv[optind]) {
-		fprintf(stderr, "Required argument missing! Consult %s -h.\n", argv[0]);
-		return(1);
-	}
-#endif
-
 	signal(SIGHUP, sighandler);
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
@@ -382,31 +319,6 @@ int main(int argc, char **argv)
 	signal(SIGTERM, sighandler);
 	signal(SIGABRT, sighandler);
 
-#if 0
-	if(opt_hide_cursor) {
-		printf("\033[?25l");
-		fflush(stdout);
-	}
-
-	setup_console(1);
-
-	for(i = optind; argv[i]; ) {
-		int r = show_image(argv[i]);
-
-		if(!r) break;
-
-		i += r;
-		if(i < optind)
-			i = optind;
-	}
-
-	setup_console(0);
-
-	if(opt_hide_cursor) {
-		printf("\033[?25h");
-		fflush(stdout);
-	}
-#endif
-	show_image("stdin");
+	show_image(devicename);
 	return(0);
 }

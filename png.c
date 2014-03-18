@@ -18,7 +18,6 @@
 */
 
 #include "config.h"
-#ifdef FBV_SUPPORT_PNG
 #include <png.h>
 #include "fbv.h"
 #include <sys/types.h>
@@ -28,29 +27,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PNG_BYTES_TO_CHECK 4
 #ifndef min
 #define min(x,y) ((x) < (y) ? (x) : (y))
 #endif
 
-int fh_png_id(char *name)
-{
-#if 0
-	int fd;
-	char id[4];
-	fd=open(name,O_RDONLY);
-	if(fd==-1) return(0);
-	read(fd,id,4);
-	close(fd);
-	if(id[1]=='P' && id[2]=='N' && id[3]=='G') return(1);
-	return(0);
-#else
-	return 1;
-#endif
-}
 
 
-int fh_png_load(char *name,unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
+int fh_png_load(unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
 {
 	png_structp png_ptr;
 	png_infop info_ptr;
@@ -64,12 +47,8 @@ int fh_png_load(char *name,unsigned char **buffer, unsigned char ** alpha,int *x
 	FILE *fh;
 	png_byte sig[8];
 
-#if 0
-	if(!(fh=fopen(name,"rb"))) return(FH_ERROR_FILE);
-#else
 	freopen(NULL, "rb", stdin);
 	fh = stdin;
-#endif
 
     fread(sig, 1, sizeof(sig), fh);
     if (!png_check_sig(sig, sizeof(sig))) {
@@ -100,7 +79,6 @@ int fh_png_load(char *name,unsigned char **buffer, unsigned char ** alpha,int *x
 	*x = width;
 	*y = height;
 
-	fprintf(stderr, "0\n");
 	if(!(*buffer = (unsigned char*) malloc(width * height * 3))) {
 		fprintf(stderr, "Out of memory.\n");
 		return(FH_ERROR_FORMAT);
@@ -159,48 +137,3 @@ int fh_png_load(char *name,unsigned char **buffer, unsigned char ** alpha,int *x
 	fclose(fh);
 	return(FH_ERROR_OK);
 }
-int fh_png_getsize(char *name,int *x,int *y)
-{
-	png_structp png_ptr;
-	png_infop info_ptr;
-	png_uint_32 width, height;
-	int bit_depth, color_type, interlace_type;
-	char *rp;
-	FILE *fh;
-
-#if 0
-	if(!(fh=fopen(name,"rb"))) return(FH_ERROR_FILE);
-#else
-	fh = stdin;
-#endif
-
-	png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,NULL,NULL,NULL);
-	if (png_ptr == NULL) return(FH_ERROR_FORMAT);
-	info_ptr = png_create_info_struct(png_ptr);
-	if (info_ptr == NULL) {
-		png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
-		fclose(fh);
-		return(FH_ERROR_FORMAT);
-	}
-	rp=0;
-	if (setjmp(png_ptr->jmpbuf)) {
-		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
-		if(rp) free(rp);
-		fclose(fh);
-		return(FH_ERROR_FORMAT);
-	}
-
-	png_init_io(png_ptr,fh);
-	png_read_info(png_ptr, info_ptr);
-	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,&interlace_type, NULL, NULL);
-	png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
-	*x=width;
-	*y=height;
-#if 0
-	fclose(fh);
-#else
-	rewind(fh);
-#endif
-	return(FH_ERROR_OK);
-}
-#endif

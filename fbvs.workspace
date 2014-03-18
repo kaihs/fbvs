@@ -2,8 +2,8 @@
 <CodeLite_Workspace Name="fbvs" Database="./fbvs.tags">
   <Project Name="fbvs" Path="fbvs.project" Active="Yes"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="yes">
-      <Project Name="fbvs" ConfigName="Debug"/>
+    <WorkspaceConfiguration Name="Debug" Selected="no">
+      <Project Name="fbvs" ConfigName="Release"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="fbvs" ConfigName="Release"/>

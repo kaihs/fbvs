@@ -21,24 +21,10 @@
 #define FH_ERROR_FILE 1		/* read/access error */
 #define FH_ERROR_FORMAT 2	/* file format error */
 
-void fb_display(unsigned char *rgbbuff, unsigned char * alpha, int x_size, int y_size, int x_pan, int y_pan, int x_offs, int y_offs);
-void getCurrentRes(int *x, int *y);
+void fb_display(const char *name, unsigned char *rgbbuff, unsigned char * alpha, int x_size, int y_size, int x_pan, int y_pan, int x_offs, int y_offs);
+void getCurrentRes(const char *devicename, int *x, int *y);
 
-int fh_bmp_id(char *name);
-int fh_bmp_load(char *name,unsigned char *buffer, unsigned char **alpha, int x,int y);
-int fh_bmp_getsize(char *name,int *x,int *y);
-
-int fh_jpeg_id(char *name);
-int fh_jpeg_load(char *name,unsigned char *buffer, unsigned char **alpha, int x,int y);
-int fh_jpeg_getsize(char *name,int *x,int *y);
-
-int fh_png_id(char *name);
-int fh_png_load(char *name,unsigned char **buffer, unsigned char **alpha, int *x,int *y);
-int fh_png_getsize(char *name,int *x,int *y);
-
-int fh_gif_id(char *name);
-int fh_gif_load(char *name,unsigned char *buffer, unsigned char **alpha, int x,int y);
-int fh_gif_getsize(char *name,int *x,int *y);
+int fh_png_load(unsigned char **buffer, unsigned char **alpha, int *x,int *y);
 
 struct image
 {

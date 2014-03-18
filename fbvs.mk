@@ -2,18 +2,18 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Debug
+## Release
 ProjectName            :=fbvs
-ConfigurationName      :=Debug
+ConfigurationName      :=Release
 WorkspacePath          := "/home/kai/pi/framebuffer/fbvs"
 ProjectPath            := "/home/kai/pi/framebuffer/fbvs"
-IntermediateDirectory  :=./Debug
+IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Kai Stuke
-Date                   :=09.03.2014
+Date                   :=16.03.2014
 CodeLitePath           :="/home/kai/.codelite"
 LinkerName             :=gcc
 SharedObjectLinkerName :=gcc -shared -fPIC
@@ -50,15 +50,15 @@ LibPath                := $(LibraryPathSwitch).
 AR       := ar rcus
 CXX      := gcc
 CC       := gcc
-CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
-CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
+CXXFLAGS :=  -O2 -Wall $(Preprocessors)
+CFLAGS   :=  -O2 -Wall $(Preprocessors)
 
 
 ##
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main$(ObjectSuffix) $(IntermediateDirectory)/bmp$(ObjectSuffix) $(IntermediateDirectory)/fb_display$(ObjectSuffix) $(IntermediateDirectory)/gif$(ObjectSuffix) $(IntermediateDirectory)/jpeg$(ObjectSuffix) $(IntermediateDirectory)/png$(ObjectSuffix) $(IntermediateDirectory)/transforms$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main$(ObjectSuffix) $(IntermediateDirectory)/fb_display$(ObjectSuffix) $(IntermediateDirectory)/png$(ObjectSuffix) $(IntermediateDirectory)/transforms$(ObjectSuffix) 
 
 
 
@@ -77,7 +77,7 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
 
 $(IntermediateDirectory)/.d:
-	@test -d ./Debug || $(MakeDirCommand) ./Debug
+	@test -d ./Release || $(MakeDirCommand) ./Release
 
 PreBuild:
 
@@ -93,14 +93,6 @@ $(IntermediateDirectory)/main$(DependSuffix): main.c
 $(IntermediateDirectory)/main$(PreprocessSuffix): main.c
 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main$(PreprocessSuffix) "main.c"
 
-$(IntermediateDirectory)/bmp$(ObjectSuffix): bmp.c $(IntermediateDirectory)/bmp$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/bmp.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/bmp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/bmp$(DependSuffix): bmp.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/bmp$(ObjectSuffix) -MF$(IntermediateDirectory)/bmp$(DependSuffix) -MM "bmp.c"
-
-$(IntermediateDirectory)/bmp$(PreprocessSuffix): bmp.c
-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/bmp$(PreprocessSuffix) "bmp.c"
-
 $(IntermediateDirectory)/fb_display$(ObjectSuffix): fb_display.c $(IntermediateDirectory)/fb_display$(DependSuffix)
 	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/fb_display.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/fb_display$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/fb_display$(DependSuffix): fb_display.c
@@ -108,22 +100,6 @@ $(IntermediateDirectory)/fb_display$(DependSuffix): fb_display.c
 
 $(IntermediateDirectory)/fb_display$(PreprocessSuffix): fb_display.c
 	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/fb_display$(PreprocessSuffix) "fb_display.c"
-
-$(IntermediateDirectory)/gif$(ObjectSuffix): gif.c $(IntermediateDirectory)/gif$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/gif.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/gif$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/gif$(DependSuffix): gif.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/gif$(ObjectSuffix) -MF$(IntermediateDirectory)/gif$(DependSuffix) -MM "gif.c"
-
-$(IntermediateDirectory)/gif$(PreprocessSuffix): gif.c
-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/gif$(PreprocessSuffix) "gif.c"
-
-$(IntermediateDirectory)/jpeg$(ObjectSuffix): jpeg.c $(IntermediateDirectory)/jpeg$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/jpeg.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/jpeg$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/jpeg$(DependSuffix): jpeg.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/jpeg$(ObjectSuffix) -MF$(IntermediateDirectory)/jpeg$(DependSuffix) -MM "jpeg.c"
-
-$(IntermediateDirectory)/jpeg$(PreprocessSuffix): jpeg.c
-	@$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/jpeg$(PreprocessSuffix) "jpeg.c"
 
 $(IntermediateDirectory)/png$(ObjectSuffix): png.c $(IntermediateDirectory)/png$(DependSuffix)
 	$(CC) $(SourceSwitch) "/home/kai/pi/framebuffer/fbvs/png.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/png$(ObjectSuffix) $(IncludePath)
@@ -150,18 +126,9 @@ clean:
 	$(RM) $(IntermediateDirectory)/main$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/main$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/main$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/bmp$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/bmp$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/bmp$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/fb_display$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/fb_display$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/fb_display$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/gif$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/gif$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/gif$(PreprocessSuffix)
-	$(RM) $(IntermediateDirectory)/jpeg$(ObjectSuffix)
-	$(RM) $(IntermediateDirectory)/jpeg$(DependSuffix)
-	$(RM) $(IntermediateDirectory)/jpeg$(PreprocessSuffix)
 	$(RM) $(IntermediateDirectory)/png$(ObjectSuffix)
 	$(RM) $(IntermediateDirectory)/png$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/png$(PreprocessSuffix)
@@ -169,6 +136,6 @@ clean:
 	$(RM) $(IntermediateDirectory)/transforms$(DependSuffix)
 	$(RM) $(IntermediateDirectory)/transforms$(PreprocessSuffix)
 	$(RM) $(OutputFile)
-	$(RM) ".build-debug/fbvs"
+	$(RM) ".build-release/fbvs"
 
 
