@@ -1,1 +1,0 @@
-./Release/main.o ./Release/fb_display.o ./Release/png.o ./Release/transforms.o
