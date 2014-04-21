@@ -1,7 +1,8 @@
 /*`
-    fbv  --  simple image viewer for the linux framebuffer
+    fbvs  --  simple image viewer for the linux framebuffer
     Copyright (C) 2000  Tomasz Sterna
     Copyright (C) 2003  Mateusz Golicz
+    Copyright (C) 2014  Kai Stuke
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
