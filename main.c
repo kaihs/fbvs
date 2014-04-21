@@ -174,6 +174,8 @@ int show_image(char *devicename)
 	    transform_iaspect = opt_ignore_aspect, transform_rotation = 0;
 
 	struct image i;
+	
+	memset(&i,0, sizeof(i));
 
 	if(fh_png_load(&image, &alpha, &x_size, &y_size) != FH_ERROR_OK) {
 		fprintf(stderr, "Image data is corrupt?\n");

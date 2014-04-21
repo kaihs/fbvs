@@ -2,10 +2,10 @@
 
 make distclean
 
-NAME="fbv-`cat VERSION`"
+NAME="fbvs-`cat VERSION`"
 OLDDIR="`pwd`"
 
-rm -fr fbv-*.tar.gz
+rm -fr fbvs-*.tar.gz
 cd ..
 mv $OLDDIR $NAME
 

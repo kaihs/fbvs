@@ -41,9 +41,9 @@ int fh_png_load(unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
 	int i;
 	int bit_depth, color_type, interlace_type;
 	int number_passes,pass, trans = 0;
-	char *rp;
+	unsigned char *rp;
 	png_bytep rptr[2];
-	char *fbptr;
+	unsigned char *fbptr;
 	FILE *fh;
 	png_byte sig[8];
 
@@ -101,7 +101,7 @@ int fh_png_load(unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
 		unsigned char * alpha_buffer = (unsigned char*) malloc(width * height);
 		unsigned char * aptr;
 
-		rp = (char*) malloc(width * 4);
+		rp = (unsigned char*) malloc(width * 4);
 		rptr[0] = (png_bytep) rp;
 
 		*alpha = alpha_buffer;
