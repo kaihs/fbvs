@@ -227,8 +227,6 @@ int show_image(char *devicename)
 		else
 			y_offs = 0;
 
-fprintf(stderr, "display\n");
-
 		fb_display(devicename, i.rgb, i.alpha, i.width, i.height, x_pan, y_pan, x_offs, y_offs);
 		refresh = 0;
 	}
