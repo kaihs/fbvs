@@ -51,8 +51,8 @@ int fh_png_load(unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
 	freopen(NULL, "rb", stdin);
 	fh = stdin;
 
-    fread(sig, 1, sizeof(sig), fh);
-    if (!png_check_sig(sig, sizeof(sig))) {
+        fread(sig, 1, sizeof(sig), fh);
+        if (!png_check_sig(sig, sizeof(sig))) {
 		fprintf(stderr, "wrong signature\n");
 		return(FH_ERROR_FORMAT);
 	}
@@ -66,7 +66,7 @@ int fh_png_load(unsigned char **buffer, unsigned char ** alpha,int *x,int *y)
 		return(FH_ERROR_FORMAT);
 	}
 	rp=0;
-	if (setjmp(png_ptr->jmpbuf)) {
+	if (setjmp(png_jmpbuf(png_ptr))) {
 		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 		if(rp) free(rp);
 		fclose(fh);
